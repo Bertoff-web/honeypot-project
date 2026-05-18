@@ -7,7 +7,7 @@ def handle_ssh(conn, addr):
     ip, port = addr
     log_event("SSH", ip, port)
     try:
-        # Envia banner falso de SSH para parecer legítimo
+       
         conn.send(b"SSH-2.0-OpenSSH_8.9p1 Ubuntu\r\n")
         data = conn.recv(1024)
         log_event("SSH", ip, port, data.decode(errors="ignore"))
@@ -20,8 +20,7 @@ def handle_http(conn, addr):
     ip, port = addr
     try:
         data = conn.recv(4096).decode(errors="ignore")
-        log_event("HTTP", ip, port, data.split("\r\n")[0])  # salva só a primeira linha
-        # Responde com página falsa de login
+        log_event("HTTP", ip, port, data.split("\r\n")[0])  
         response = (
             "HTTP/1.1 200 OK\r\n"
             "Content-Type: text/html\r\n\r\n"
